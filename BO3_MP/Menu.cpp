@@ -52,7 +52,7 @@ void Menu::RenderMenu() {
 		switch (CurrentMenu) {
 		case MenuBase:
 			menu->LastMenu[menu->CurrentMenu] = MenuBase;
-			AddTitle("Quarantine CE");
+			AddTitle("Quarantine CE (b0.1)");
 			AddOption("Cheats", SelectMenu, Cheats);
 			AddOption("ESP", SelectMenu, ESP);
 			AddOption("Aimbot", SelectMenu, Aimbot);
@@ -60,10 +60,10 @@ void Menu::RenderMenu() {
 			AddOption("Names", SelectMenu, Names);
 			AddOption("Stats", SelectMenu, Stats);
 			AddOption("Menu Settings", SelectMenu, MenuSettings);
-			AddOption("Discord", PrintDiscord);
-			AddOption("Join Discord", PrintJoin);
+			//AddOption("Discord", PrintDiscord);
+			//AddOption("Join Discord", PrintJoin);
 			//AddBool("No Miss Mode", &vars->bNoMissMode);
-			AddOption("Force Host", TestCall);
+			//AddOption("Force Host", TestCall);
 			//AddSlider("eType Switcher", &vars->iEntityType, 0, 50, 1, true);
 			//AddSlider("Set FOV", &vars->fTest1, 40, 160, 1, false, CG_SetFOV);
 			break;
