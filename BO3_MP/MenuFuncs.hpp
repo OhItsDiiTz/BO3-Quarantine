@@ -11,7 +11,8 @@ void CG_ThirdPerson(bool val);
 void CG_ItemWallhack(bool val);
 void CG_PlayerWallhack(bool val);
 
-
+void CG_Disconnect();
+void CG_CrashServer();
 
 
 void TestCall();

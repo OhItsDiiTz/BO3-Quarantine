@@ -2,6 +2,8 @@
 uint32_t stats_list;
 Menu::Menu() {
 	isMenuOpen = false;
+	CurrentMenu = 0;
+	CurrentOption = 0;
 }
 
 Menu::~Menu() {
@@ -55,11 +57,11 @@ void Menu::RenderMenu() {
 			AddTitle("Quarantine CE (b0.1)");
 			AddOption("Cheats", SelectMenu, Cheats);
 			AddOption("ESP", SelectMenu, ESP);
-			AddOption("Aimbot", SelectMenu, Aimbot);
+			//AddOption("Aimbot", SelectMenu, Aimbot);
 			//AddOption("Anti-Aim", SelectMenu, AntiAim);
-			AddOption("Names", SelectMenu, Names);
+			//AddOption("Names", SelectMenu, Names);
 			AddOption("Stats", SelectMenu, Stats);
-			AddOption("Menu Settings", SelectMenu, MenuSettings);
+			///AddOption("Menu Settings", SelectMenu, MenuSettings);
 			//AddOption("Discord", PrintDiscord);
 			//AddOption("Join Discord", PrintJoin);
 			//AddBool("No Miss Mode", &vars->bNoMissMode);
@@ -73,17 +75,18 @@ void Menu::RenderMenu() {
 			AddBool("Unlimited V-Sat", &vars->bAdvancedUAV, CG_AdvancedUAV);
 			AddBool("Red Boxes", &vars->bRedBoxes, CG_RedBoxes);
 			AddBool("No Weapon Flash", &vars->bNoWeaponFlash, CG_NoWeaponFlash);
-			AddBool("No Weapon Sounds", &vars->bNoWeaponSounds, CG_NoWeaponSounds);
+			//AddBool("No Weapon Sounds", &vars->bNoWeaponSounds, CG_NoWeaponSounds);
 			AddBool("No Recoil", &vars->bNoRecoil, CG_NoRecoil);
 			AddBool("Third Person", &vars->bThirdPerson, CG_ThirdPerson);
-			AddBool("Player Wallhack", &vars->bPlayerWallhack, CG_PlayerWallhack);
-			AddBool("Item Wallhack", &vars->bItemWallhack, CG_ItemWallhack);
+			//AddBool("Player Wallhack", &vars->bPlayerWallhack, CG_PlayerWallhack);
+			//AddBool("Item Wallhack", &vars->bItemWallhack, CG_ItemWallhack);
 			AddBool("Air Stuck", &vars->bAirstuck);
 			AddBool("Bullet Tracers", &vars->bBulletTracers);
-			AddSlider("FOV", &vars->fFOV, 40, 160, 1, false);
-			AddOption("Disconnect", nullsub);
-			AddOption("End Game", nullsub);
-			AddOption("Crash Server", nullsub);
+			//AddSlider("FOV", &vars->fFOV, 40, 160, 1, false);
+			AddBool("Enable Aimbot", &vars->bAimbot);
+			AddOption("Disconnect", CG_Disconnect);
+			//AddOption("End Game", nullsub);
+			AddOption("Crash Server", CG_CrashServer);
 			break;
 
 		case ESP:
@@ -105,7 +108,6 @@ void Menu::RenderMenu() {
 		case Aimbot:
 			menu->LastMenu[menu->CurrentMenu] = MenuBase;
 			AddTitle("Aimbot");
-			AddBool("Enable Aimbot", &vars->bAimbot);
 			//AddSlider("Aimbot Key", &vars->iAimKey, 0, 5, 1, true);
 			AddStringSlider("Aim Tag", &vars->iAimTag, 0, 2, vars->sAimTag);
 			AddBool("Auto Shoot", &vars->bAutoShoot);

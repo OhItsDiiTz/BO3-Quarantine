@@ -99,6 +99,14 @@ void CG_ItemWallhack(bool val) {
 	}
 }
 
+void CG_Disconnect() {
+	Cbuf_AddText(0, "disconnect\n");
+}
+
+void CG_CrashServer() {
+	Cbuf_AddText(0, "cmd sl 1\n");
+}
+
 void TestCall() {
 	Cbuf_AddText(0, "set lobbyTimerStatusVotingInterval 0; set lobbyTimerStartInterval 0;set lobbyTimerStatusStartInterval 0;set lobbyTimerStatusBeginInterval 0;set lobbySearchSkip 1;set party_minplayers 1;");
 }
