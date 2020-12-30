@@ -54,10 +54,10 @@ void Menu::RenderMenu() {
 		switch (CurrentMenu) {
 		case MenuBase:
 			menu->LastMenu[menu->CurrentMenu] = MenuBase;
-			AddTitle("Quarantine CE (b0.1)");
+			AddTitle("Quarantine CE (Developer)");
 			AddOption("Cheats", SelectMenu, Cheats);
 			AddOption("ESP", SelectMenu, ESP);
-			//AddOption("Aimbot", SelectMenu, Aimbot);
+			AddOption("Aimbot", SelectMenu, Aimbot);
 			//AddOption("Anti-Aim", SelectMenu, AntiAim);
 			//AddOption("Names", SelectMenu, Names);
 			AddOption("Stats", SelectMenu, Stats);
@@ -82,10 +82,10 @@ void Menu::RenderMenu() {
 			//AddBool("Item Wallhack", &vars->bItemWallhack, CG_ItemWallhack);
 			AddBool("Air Stuck", &vars->bAirstuck);
 			AddBool("Bullet Tracers", &vars->bBulletTracers);
-			//AddSlider("FOV", &vars->fFOV, 40, 160, 1, false);
-			AddBool("Enable Aimbot", &vars->bAimbot);
+			//AddBool("High FOV", &vars->bFOV);
+			AddStringSlider("FOV", &vars->iFOV, 0, 3, vars->sFovType);
 			AddOption("Disconnect", CG_Disconnect);
-			//AddOption("End Game", nullsub);
+			AddOption("End Game", CG_EndGame);
 			AddOption("Crash Server", CG_CrashServer);
 			break;
 
@@ -108,11 +108,13 @@ void Menu::RenderMenu() {
 		case Aimbot:
 			menu->LastMenu[menu->CurrentMenu] = MenuBase;
 			AddTitle("Aimbot");
+			AddBool("Enable Aimbot", &vars->bAimbot);
 			//AddSlider("Aimbot Key", &vars->iAimKey, 0, 5, 1, true);
-			AddStringSlider("Aim Tag", &vars->iAimTag, 0, 2, vars->sAimTag);
-			AddBool("Auto Shoot", &vars->bAutoShoot);
-			AddBool("Auto Wall", &vars->bAutoWall);
-			AddBool("No Spread", &vars->bNoSpread);
+			AddStringSlider("Aim Tag", &vars->iAimTag, 0, 4, vars->sAimTag);
+			AddBool("cant see them lock on thing", &vars->bAutoBone);
+			//AddBool("Auto Shoot", &vars->bAutoShoot);
+			//AddBool("Auto Wall", &vars->bAutoWall);
+			//AddBool("No Spread", &vars->bNoSpread);
 			break;
 		case AntiAim:
 			menu->LastMenu[menu->CurrentMenu] = MenuBase;

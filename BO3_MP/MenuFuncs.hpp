@@ -12,6 +12,7 @@ void CG_ItemWallhack(bool val);
 void CG_PlayerWallhack(bool val);
 
 void CG_Disconnect();
+void CG_EndGame();
 void CG_CrashServer();
 
 

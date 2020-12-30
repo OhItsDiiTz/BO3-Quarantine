@@ -215,6 +215,31 @@ bool AimTarget_isTargetVisible(int localClientNum, centity_t *cent) {
 	return GameCall<bool>(0x00036700)(localClientNum, cent);
 }
 
+void CG_LocationalTrace(trace_t *results, const float *start, const float *end, int passEntityNum, int contentMask, bool checkRopes, void *context) {
+	GameCall<void>(0x00198B74)(results, start, end, passEntityNum, contentMask, checkRopes, context);
+}
+
+void col_context_t_Constructor(col_context_t * tr) {
+	GameCall<void>(0x005A6AE8)(tr);
+}
+
+bool IsTagVisible(int clientNum, const char * tag) {
+	float tagpos[3] = {0, 0, 0};
+	
+
+	AimTarget_GetTagPos(&cg_entitiesArray[clientNum], SL_GetString(tag, 0, 5), tagpos);
+	trace_t trace;
+	memset(&trace, 0, sizeof(trace_t));
+	CG_LocationalTrace(&trace, tagpos, cgArray->refdef.viewOrigin, clientNum, 0x803001, 0, 0);
+
+	R_AddCmdDrawTextInternal(va("fraction: %.2f - %s - (%.2f, %.2f, %.2f)", trace.fraction, tag, tagpos[0], tagpos[1], tagpos[2]), 0x7FFFFFFF, CL_GetNormalFont(), 25, 25, 0.75f, 0.75f, 0, colorWhite, 0);
+
+	if (trace.fraction >= 0.9499999f) {
+		return true;
+	}
+	return false;
+}
+
 void VectorSubtract(const float * a, const float * b, float * c) {
 	c[0] = a[0] - b[0];
 	c[1] = a[1] - b[1];
@@ -236,7 +261,37 @@ int nearestPlayer() {
 		if (i != cgArray->clientNum) {
 			if (!CG_IsEntityFriendlyNotEnemy(0, &cg_entitiesArray[i])) {
 				if (cg_entitiesArray[i].isAlive1 != 0) {
-					if (AimTarget_isTargetVisible(0, &cg_entitiesArray[i])) {
+					if (vars->bAutoBone) {
+						float dist = distance2d(cg_entitiesArray[cgArray->clientNum].origin, cg_entitiesArray[i].origin);
+						if (dist <= distance) {
+							distance = dist;
+							nearest = i;
+						}
+					}
+					else {
+						if (AimTarget_isTargetVisible(0, &cg_entitiesArray[i])) {
+							float dist = distance2d(cg_entitiesArray[cgArray->clientNum].origin, cg_entitiesArray[i].origin);
+							if (dist <= distance) {
+								distance = dist;
+								nearest = i;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return nearest;
+}
+
+int nPlayer() {
+	int nearest = -1;
+	float distance = 9999999.0f;
+	for (int i = 0; i < 12; i++) {
+		if (i != cgArray->clientNum) {
+			if (!CG_IsEntityFriendlyNotEnemy(0, &cg_entitiesArray[i])) {
+				if (cg_entitiesArray[i].isAlive1 != 0) {
+					for (int ii = 0; ii < 13;ii++) {
 						float dist = distance2d(cg_entitiesArray[cgArray->clientNum].origin, cg_entitiesArray[i].origin);
 						if (dist <= distance) {
 							distance = dist;

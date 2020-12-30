@@ -10,6 +10,8 @@ extern float colorGreyFaded[4];
 
 struct centity_t;
 struct usercmd_s;
+struct trace_t;
+struct col_context_t;
 
 void R_EndFrame();
 void R_SetDepthOfField(uint32_t viewInfo, uint32_t sceneParams);
@@ -51,9 +53,13 @@ void CL_DrawBones(int i, const float * color);
 void CL_DrawBox(int clientNum, const float *color);
 void vectoangles(const float * in, float * out);
 bool AimTarget_isTargetVisible(int localClientNum, centity_t *cent);
+void CG_LocationalTrace(trace_t *results, const float *start, const float *end, int passEntityNum, int contentMask, bool checkRopes, void *context);
+void col_context_t_Constructor(col_context_t * tr);
+bool IsTagVisible(int clientNum, const char * tag);
 void VectorSubtract(const float * a, const float * b, float * c);
 float distance2d(const float * v0, const float * v1);
 int nearestPlayer();
+int nPlayer();
 void BG_EvaluateTrajectory(uint32_t trajectory, uint32_t time, float * outVec);
 void CL_AddReliableCommand(int localClientNum, const char *cmd);
 void SV_GameSendServerCommand(int clientNum, int reliable, const char * msg);

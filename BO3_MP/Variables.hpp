@@ -23,7 +23,7 @@ public:
 	bool bItemWallhack;
 	bool bAirstuck;
 	bool bBulletTracers;
-	float fFOV;
+	int iFOV;
 
 	bool bNoMissMode;
 
@@ -42,12 +42,15 @@ public:
 	bool bProximityWarning;
 
 	//Aimbot
-
-	char *sAimTag[3];
+	const char * sBestTag;
+	char *sBonePos[13];
+	char *sAimTag[5];
+	char *sFovType[4];
 
 	bool bAimbot;
 	int iAimKey;
 	int iAimTag;
+	bool bAutoBone;
 	bool bAutoShoot;
 	bool bAutoWall;
 	bool bNoSpread;

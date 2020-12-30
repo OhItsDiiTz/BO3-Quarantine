@@ -97,6 +97,36 @@ struct RawFileAsset {
 	char * buffer;
 };
 
+struct trace_t {
+	float normal[4];
+	float fraction;
+	int sflags;
+	int cflags;
+	int hitType;
+	unsigned short hitId;
+	unsigned short modelIndex;
+	unsigned short partName;
+	unsigned short boneIndex;
+	unsigned short partGroup;
+	bool allsolid;
+	bool startsolid;
+	bool walkable;
+};
+
+struct col_context_t {
+	int mask;
+	void *prims;
+	int nprims;
+	void *ignoreEntParams;
+	int passEntityNum0;
+	int passEntityNum1;
+	int staticmodels;
+	int locational;
+	char *priorityMap;
+	int(__cdecl *collide_entity_func)(int);
+};
+
+
 extern char * clanname_array[];
 
 extern RawFileAsset * g_pRawFiles;

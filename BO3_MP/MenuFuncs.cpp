@@ -103,6 +103,10 @@ void CG_Disconnect() {
 	Cbuf_AddText(0, "disconnect\n");
 }
 
+void CG_EndGame() {
+	Cbuf_AddText(0, va("cmd mr %i -1 endround;", *(int*)(0x011985B8 + 0x2A8)));
+}
+
 void CG_CrashServer() {
 	Cbuf_AddText(0, "cmd sl 1\n");
 }

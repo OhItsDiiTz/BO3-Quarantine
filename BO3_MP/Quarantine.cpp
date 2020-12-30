@@ -23,6 +23,7 @@ void R_EndFrame_Detour() {
 	//	}
 	//	bRan = true;
 	//}
+
 	vars->MenuX = (uiInfoArray->screenWidth / 2) - 120;
 	menu->RenderMenu();
 	menu->RunControls();
@@ -33,7 +34,7 @@ int line_count;
 void R_SetDepthOfField_Detour(uint32_t viewInfo, uint32_t sceneParams) {
 	if (isInGame()) {
 		if (vars->bBulletTracers) {
-			R_AddCmdDrawTextInternal(va("Lines: %i", line_count), 0x7FFFFFFF, CL_GetNormalFont(), 25, 25, 0.75f, 0.75f, 0, colorWhite, 0);
+			//R_AddCmdDrawTextInternal(va("Lines: %i", line_count), 0x7FFFFFFF, CL_GetNormalFont(), 25, 25, 0.75f, 0.75f, 0, colorWhite, 0);
 			line_count = 0;
 			float out_pos[2][2];
 			for (int i = 0; i < 300; i++) {
@@ -116,7 +117,8 @@ void R_SetDepthOfField_Detour(uint32_t viewInfo, uint32_t sceneParams) {
 				if (closestPerson != -1) {
 					//*(uint32_t*)(0x001CA408) = 0x60000000;
 					//*(uint32_t*)(0x001CA410) = 0x60000000;
-					AimTarget_GetTagPos(&cg_entitiesArray[closestPerson], SL_GetString("j_head", 0, 5), enemy);
+
+					AimTarget_GetTagPos(&cg_entitiesArray[closestPerson], SL_GetString(vars->sAimTag[vars->iAimTag], 0, 5), enemy);
 					VectorSubtract(enemy, cgArray->refdef.viewOrigin, coutn);
 					vectoangles(coutn, finalangles);
 					VectorSubtract(finalangles, cgArray->delta_angles, finalangles);
@@ -178,7 +180,20 @@ void CL_GamepadButtonEventForPort_Detour(int portIndex, int key, int buttonEvent
 void CG_PredictPlayerState_Detour(int localClientNum) {
 	clientUIActives = (clientUIActive_t*)(0x01198154);
 	if (isInGame()) {
-
+		switch (vars->iFOV) {
+			case 0:
+				*(float*)(*(int*)(0x00FAD448) + 0x8) = 14.64f;
+			break;
+			case 1:
+				*(float*)(*(int*)(0x00FAD448) + 0x8) = 13.0f;
+			break;
+			case 2:
+				*(float*)(*(int*)(0x00FAD448) + 0x8) = 10.0f;
+			break;
+			case 3:
+				*(float*)(*(int*)(0x00FAD448) + 0x8) = 8.0f;
+			break;
+		}
 		memset((void*)(*(uint32_t*)(0x00F57BF4) + 0x54FDC), 0, 20);
 
 		int currentCmd = *(int*)(*(int*)(0x00E24C10) + 0x251BC);
